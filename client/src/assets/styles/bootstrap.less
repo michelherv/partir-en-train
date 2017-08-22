@@ -1,0 +1,24 @@
+@import "../../../node_modules/bootstrap/less/bootstrap";
+@import "../../../node_modules/bootstrap/less/theme";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@brand-primary: #BC2EBC;
+@brand-info: #6755E3;
+
+
+// la boîte de dialogue pour afficher les infos sur une gare doit être plus large
+.popover {
+    max-width: 100%;
+}
+
+// les boutons de la map doivent être au thème de l'application
+.ol-control button {
+    background-color: @brand-primary;
+    opacity: 0.5;
+}
+
+// la ligne de l'échelle doit être au thème de l'application
+.ol-scale-line {
+    background-color: @brand-primary;
+    opacity: 0.3;
+}

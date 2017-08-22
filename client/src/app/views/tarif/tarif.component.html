@@ -1,0 +1,17 @@
+<div class="panel panel-primary" *ngIf="tarif?.appelClasse2">
+    <div class="panel-body">
+        <h3>Offre spécial <span class="label label-primary pull-right">{{ tarif.appelClasse2 | currency:'EUR':true }}</span></h3>
+    </div>
+</div>
+
+<div class="panel panel-info" *ngIf="tarif?.classe2">
+    <div class="panel-body">
+        <h3>Voyage en 2nde classe <span class="label label-info pull-right">{{ tarif.classe2 | currency:'EUR':true }}</span></h3>
+    </div>
+</div>
+
+<div class="panel panel-success" *ngIf="tarif?.classe1">
+    <div class="panel-body">
+        <h3>Voyage en 1ère classe <span class="label label-success pull-right">{{ tarif.classe1 | currency:'EUR':true }}</span></h3>
+    </div>
+</div>

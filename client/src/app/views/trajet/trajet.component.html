@@ -1,0 +1,19 @@
+<form novalidate>
+    <!-- gare de départ -->
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-12">
+            <md-select placeholder="Gare de départ" name="gareDepart" [ngModel]="gare.origine.selected" (ngModelChange)="doSelect($event, true)">
+                <md-option *ngFor="let item of gare.origine.items" [value]="item">{{ item.libelle }}</md-option>
+            </md-select>
+        </div>
+    </div>
+
+    <!-- gare de destination' -->
+    <div class="row" style="margin-top: 40px; margin-bottom: 40px;">
+        <div class="col-xs-12">
+            <md-select placeholder="Gare d'arrivée" name="gareDestination" [ngModel]="gare.destination.selected" (ngModelChange)="doSelect($event, false)">
+                <md-option *ngFor="let item of gare.destination.items" [value]="item">{{ item.libelle }}</md-option>
+            </md-select>
+        </div>
+    </div>
+</form>

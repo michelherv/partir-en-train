@@ -1,0 +1,85 @@
+<!-- présentation du sélecteur de commune -->
+<div class="row" style="margin-bottom: 5px;">
+    <div class="col-xs-12 col-sm-offset-8 col-sm-4 col-md-offset-9 col-md-3">
+        <div class="dropdown">
+            <button class="btn btn-default btn-block dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span>{{ commune.selected.libelle }}</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li *ngFor="let item of commune.items" routerLinkActive="disabled">
+                    <a [routerLink]="[]" [queryParams]="{commune: item.libelle}" queryParamsHandling="merge">
+                        {{ item.libelle ? item.libelle : 'Commune inconnue' }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- présentation de la carte des gares -->
+<div class="row" style="margin-bottom: 5px;">
+    <div class="col-xs-12">
+        <aol-map width="100%" height="100">
+            <aol-interaction-default></aol-interaction-default>
+            <aol-control-zoom></aol-control-zoom>
+            <aol-control-zoomslider></aol-control-zoomslider>
+            <aol-control-scaleline></aol-control-scaleline>
+
+            <aol-view [resolution]="256" [minResolution]="64" [maxResolution]="1024">
+                <aol-coordinate [x]="center.x" [y]="center.y" [srid]="'EPSG:4326'"></aol-coordinate>
+            </aol-view>
+
+            <aol-layer-tile>
+                <aol-source-osm></aol-source-osm>
+            </aol-layer-tile>
+
+            <aol-layer-vector>
+                <aol-source-vector>
+
+                    <!-- présentation des gares -->
+                    <aol-feature *ngFor="let item of gare.filteredItems">
+                        <aol-overlay>
+                            <aol-coordinate [x]="item.coordonneesGeographiques.x" [y]="item.coordonneesGeographiques.y" srid="EPSG:4326">
+                            </aol-coordinate>
+                            <aol-content>
+                                <a [routerLink]="[]" [queryParams]="{gare: item.libelle}" queryParamsHandling="merge" class="btn btn-link btn-xs" data-toggle="popover"
+                                    data-container="body" data-placement="auto" data-trigger="focus" data-html="true" [attr.data-title]="'Gare : ' + item.libelle"
+                                    [attr.data-content]="getTemplate(item)" role="button" tabindex="0">
+
+                                    <em *ngIf="!item.tgv" class="fa fa-train fa-lg" aria-hidden="true"></em>
+
+                                    <em *ngIf="item.tgv" class="fa-stack fa-lg">
+                                        <em class="fa fa-square fa-stack-2x"></em>
+                                        <em class="fa fa-train fa-stack-1x fa-inverse"></em>
+                                    </em>
+                                </a>
+                            </aol-content>
+                        </aol-overlay>
+                    </aol-feature>
+                </aol-source-vector>
+            </aol-layer-vector>
+        </aol-map>
+    </div>
+</div>
+
+
+<!-- légende de la carte -->
+<div class="row" style="margin-top: 10px;">
+    <div class="col-xs-12">
+        <ul class="list-unstyled">
+            <li>
+                <em class="fa-fw fa fa-train fa-lg text-primary" aria-hidden="true"></em> &nbsp;Gare Train/TER/TGV
+            </li>
+            <li>
+                <em class="fa-fw fa-stack text-primary">
+                    <em class="fa fa-square fa-stack-2x"></em>
+                <em class="fa fa-train fa-stack-1x fa-inverse"></em>
+                </em>
+                Gare spécifiquement TGV
+            </li>
+        </ul>
+    </div>
+</div>
